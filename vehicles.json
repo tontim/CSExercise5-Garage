@@ -1,0 +1,51 @@
+[
+    {
+		"type": "Car",
+        "make": "Toyota",
+        "model": "Camry",
+        "year": 2022,
+        "color": "Silver"
+    },
+    {
+		"type": "Car",
+        "make": "Honda",
+        "model": "Civic",
+        "year": 2021,
+        "color": "Blue"
+    },
+    {
+		"type": "Car",
+        "make": "Ford",
+        "model": "Escape",
+        "year": 2020,
+        "color": "Red"
+    },
+	  {
+		"type": "Motorcycle",
+        "make": "Reeves",
+        "model": "Oldbike",
+        "year": 1998,
+        "color": "Red"
+    },
+		{
+		"type": "Airplane",
+        "make": "Lufthansa",
+        "model": "780",
+        "year": 1995,
+        "color": "White"
+    },
+	  {
+		"type": "Bus",
+        "make": "Volkswagen",
+        "model": "Minibus",
+        "year": 1980,
+        "color": "Baby Blue"
+    },
+	  {
+		"type": "Boat",
+        "make": "Royal",
+        "model": "Glidarn",
+        "year": 2003,
+        "color": "White"
+    }
+]
