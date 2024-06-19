@@ -1,6 +1,8 @@
-﻿namespace CSExercise5_Garage
+﻿using CSExercise5_Garage.Interfaces;
+
+namespace CSExercise5_Garage
 {
-    public class Vehicles
+    public class Vehicles : IVehicle
     {
         public required string Type { get; set; }
         public required string Model { get; set; }
@@ -8,6 +10,7 @@
         public required string Color { get; set; }
         public required string Plate { get; set; }
         public required int NumberOfWheels { get; set; } 
+        //TODO: Probably should remove required since boats dont have wheels
     }
 
     //Vehicles with unique properties

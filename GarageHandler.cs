@@ -1,22 +1,24 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using CSExercise5_Garage.Interfaces;
 
 namespace CSExercise5_Garage
 {
-    internal class GarageHandler
+    internal class GarageHandler : IHandler
     {
-        private Garage<Vehicles>? garage;
-        private List<Vehicles> vehicles;
+        private IGarage<IVehicle>? garage;
+        private List<IVehicle> vehicles;
 
-        public GarageHandler(List<Vehicles> vehicles)
+        public GarageHandler(List<IVehicle> vehicles)
         {
-            this.vehicles = vehicles;
+            this.vehicles = vehicles ?? new List<IVehicle>();
         }
 
         public void CreateGarage(int capacity)
         {
-            garage = new Garage<Vehicles>(capacity);
+            garage = new Garage<IVehicle>(capacity);
+            
             foreach (var vehicle in vehicles)
             {
                 garage.ParkVehicle(vehicle);
@@ -24,7 +26,7 @@ namespace CSExercise5_Garage
             Console.WriteLine($"Created garage with maximum {capacity} capacity.");
         }
 
-        public void AddVehicle(Vehicles vehicle)
+        public void AddVehicle(IVehicle vehicle)
         {
             if (garage == null)
             {
@@ -70,7 +72,7 @@ namespace CSExercise5_Garage
 
             foreach (var vehicle in garage)
             {
-                Console.WriteLine($"{vehicle.Type}, {vehicle.Model}, {vehicle.Year}, {vehicle.Color}, {vehicle.Plate}, {vehicle.NumberOfWheels} wheels");
+                Console.WriteLine($"{vehicle.Type}, {vehicle.Model}, {vehicle.Year}, {vehicle.Color}, {vehicle.Plate}, {vehicle.NumberOfWheels} wheels\n");
             }
         }
 
@@ -130,8 +132,9 @@ namespace CSExercise5_Garage
             if (File.Exists(filePath))
             {
                 var json = File.ReadAllText(filePath);
-                vehicles = JsonConvert.DeserializeObject<List<Vehicles>>(json)!;
-                CreateGarage(vehicles.Count);
+                List<Vehicles> loadedVehicles = JsonConvert.DeserializeObject<List<Vehicles>>(json) ?? new List<Vehicles>();
+                vehicles = new List<IVehicle>(loadedVehicles); // Convert to List<IVehicle> because we cant do it directly
+                CreateGarage(vehicles.Count + 10);
                 Console.WriteLine("Garage loaded.");
             }
             else

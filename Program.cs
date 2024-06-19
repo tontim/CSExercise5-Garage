@@ -1,4 +1,5 @@
 ﻿using CSExercise5_Garage;
+using CSExercise5_Garage.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,10 @@ using System.IO;
 // Read json file where all vehicles are stored
 string vehiclesFile = File.ReadAllText("vehicles.json");
 //Deserialize json into list 
-List<Vehicles> vehicles = JsonConvert.DeserializeObject<List<Vehicles>>(vehiclesFile)!;
+List<Vehicles> vehicles = JsonConvert.DeserializeObject<List<Vehicles>>(vehiclesFile) ?? new List<Vehicles>();
+
+//Convert deserialized list to IVehicle since we cannot convert directly
+List<IVehicle> ivehicles = new List<IVehicle>(vehicles);
 
 Console.ForegroundColor = ConsoleColor.Red;
 Console.Write("SYSTEM: ");
@@ -16,10 +20,11 @@ Console.Write("vehicles.json ");
 Console.ResetColor();
 Console.Write("loaded!\n\n");
 
-GarageHandler garageHandler = new GarageHandler(vehicles);
+
+IHandler garageHandler = new GarageHandler(ivehicles);
 
 // Create default garage 
-int defaultCapacity = vehicles.Count; 
+int defaultCapacity = ivehicles.Count; 
 garageHandler.CreateGarage(defaultCapacity);
 
 Console.WriteLine("Welcome to the garage!\n" +
@@ -42,24 +47,31 @@ while (selection.ToUpper() != "Q")
             break;
 
         case "2":
+            
             Console.WriteLine("[A]dd or [R]emove?");
             string subSelection = Console.ReadLine()!;
+
             if (subSelection.Equals("A", StringComparison.OrdinalIgnoreCase))
             {
                 Console.WriteLine("Enter vehicle type:");
                 string type = Console.ReadLine()!;
+
                 Console.WriteLine("Enter model:");
                 string model = Console.ReadLine()!;
+                
                 Console.WriteLine("Enter year:");
                 string year = Console.ReadLine()!;
+                
                 Console.WriteLine("Enter color:");
                 string color = Console.ReadLine()!;
+                
                 Console.WriteLine("Enter plate:");
                 string plate = Console.ReadLine()!;
+                
                 Console.WriteLine("Enter number of wheels:");
                 int numberOfWheels = int.Parse(Console.ReadLine()!);
 
-                Vehicles vehicle = new Vehicles
+                IVehicle vehicle = new Vehicles
                 {
                     Type = type,
                     Model = model,
@@ -110,7 +122,8 @@ while (selection.ToUpper() != "Q")
             break;
     }
 
-    Console.WriteLine("\nWhat do you want to do?\n" +
+    Console.WriteLine("Welcome to the garage!\n" +
+        "What do you want to do?\n" +
         "[1] - What vehicles are in the garage?\n" +
         "[2] - Add & Remove vehicles\n" +
         "[3] - Search for vehicle\n" +

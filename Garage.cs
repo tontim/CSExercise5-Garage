@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using CSExercise5_Garage.Interfaces;
 
 namespace CSExercise5_Garage
 {
-    public class Garage<T> : IEnumerable<T> where T : Vehicles
+    public class Garage<T> : IGarage<T> where T : IVehicle
     {
         private T[] vehicles;
         private int capacity;
@@ -17,6 +18,7 @@ namespace CSExercise5_Garage
             count = 0;
         }
 
+        //Check for capacity and add if true
         public bool ParkVehicle(T vehicle)
         {
             if (count < capacity)
@@ -27,6 +29,7 @@ namespace CSExercise5_Garage
             return false;
         }
 
+        //Look for plate numbers and remove that vehicle
         public bool RemoveVehicle(string plate)
         {
             for (int i = 0; i < count; i++)
