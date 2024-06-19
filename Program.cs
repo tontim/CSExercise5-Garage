@@ -1,5 +1,7 @@
 ﻿using CSExercise5_Garage;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.IO;
 
 // Read json file where all vehicles are stored
@@ -14,36 +16,107 @@ Console.Write("vehicles.json ");
 Console.ResetColor();
 Console.Write("loaded!\n\n");
 
+GarageHandler garageHandler = new GarageHandler(vehicles);
+
+// Create default garage 
+int defaultCapacity = vehicles.Count; 
+garageHandler.CreateGarage(defaultCapacity);
 
 Console.WriteLine("Welcome to the garage!\n" +
     "What do you want to do?\n" +
-    //submenu that lists what types and how many
     "[1] - What vehicles are in the garage?\n" +
     "[2] - Add & Remove vehicles\n" +
     "[3] - Search for vehicle\n" +
     "[4] - Create or Load Garage\n" +
+    "[5] - Save Garage\n" +
+    "[6] - Search by Properties\n" +
     "[Q] - Quit");
 string selection = Console.ReadLine()!;
 
-switch (selection)
+while (selection.ToUpper() != "Q")
 {
-    case "1":
-        foreach ()
-        break;
-        
-    case "2":
+    switch (selection)
+    {
+        case "1":
+            garageHandler.ListVehicles();
+            break;
 
-        break;
-        
-    case "3":
+        case "2":
+            Console.WriteLine("[A]dd or [R]emove?");
+            string subSelection = Console.ReadLine()!;
+            if (subSelection.Equals("A", StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine("Enter vehicle type:");
+                string type = Console.ReadLine()!;
+                Console.WriteLine("Enter model:");
+                string model = Console.ReadLine()!;
+                Console.WriteLine("Enter year:");
+                string year = Console.ReadLine()!;
+                Console.WriteLine("Enter color:");
+                string color = Console.ReadLine()!;
+                Console.WriteLine("Enter plate:");
+                string plate = Console.ReadLine()!;
+                Console.WriteLine("Enter number of wheels:");
+                int numberOfWheels = int.Parse(Console.ReadLine()!);
 
-        break;
-    case "4":
+                Vehicles vehicle = new Vehicles
+                {
+                    Type = type,
+                    Model = model,
+                    Year = year,
+                    Color = color,
+                    Plate = plate,
+                    NumberOfWheels = numberOfWheels
+                };
+                garageHandler.AddVehicle(vehicle);
+            }
+            else if (subSelection.Equals("R", StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine("Enter plate of the vehicle to remove:");
+                string plate = Console.ReadLine()!;
+                garageHandler.RemoveVehicle(plate);
+            }
+            break;
 
-        break;
+        case "3":
+            Console.WriteLine("Enter plate of the vehicle to search:");
+            string searchPlate = Console.ReadLine()!;
+            garageHandler.SearchVehicle(searchPlate);
+            break;
 
-    default:
-        Console.WriteLine("Please input a valid entry");
-        break;
+        case "4":
+            Console.WriteLine("Enter garage capacity:");
+            int capacity = int.Parse(Console.ReadLine()!);
+            garageHandler.CreateGarage(capacity);
+            break;
+
+        case "5":
+            Console.WriteLine("Enter file path to save garage:");
+            string saveFilePath = Console.ReadLine()!;
+            garageHandler.SaveGarage(saveFilePath);
+            break;
+
+        case "6":
+            Console.WriteLine("Enter color:");
+            string searchColor = Console.ReadLine();
+            Console.WriteLine("Enter number of wheels to search (leave blank for any):");
+            string wheelsInput = Console.ReadLine();
+            int? searchWheels = string.IsNullOrEmpty(wheelsInput) ? (int?)null : int.Parse(wheelsInput);
+            garageHandler.SearchByProperties(searchColor, searchWheels);
+            break;
+
+        default:
+            Console.WriteLine("Please input a valid entry");
+            break;
+    }
+
+    Console.WriteLine("\nWhat do you want to do?\n" +
+        "[1] - What vehicles are in the garage?\n" +
+        "[2] - Add & Remove vehicles\n" +
+        "[3] - Search for vehicle\n" +
+        "[4] - Create or Load Garage\n" +
+        "[5] - Save Garage\n" +
+        "[6] - Search by Properties\n" +
+        "[Q] - Quit");
+    selection = Console.ReadLine()!;
 }
-

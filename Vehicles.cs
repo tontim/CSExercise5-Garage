@@ -1,18 +1,38 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CSExercise5_Garage
+﻿namespace CSExercise5_Garage
 {
     public class Vehicles
     {
-        public required string type { get; set; }
-        public required string model { get; set; }
-        public required string year { get; set; }
-        public required string color { get; set; }
+        public required string Type { get; set; }
+        public required string Model { get; set; }
+        public required string Year { get; set; }
+        public required string Color { get; set; }
+        public required string Plate { get; set; }
+        public required int NumberOfWheels { get; set; } 
     }
 
+    //Vehicles with unique properties
+    public class Airplane : Vehicles
+    {
+        public int NumberOfEngines { get; set; }
+    }
+
+    public class Motorcycle : Vehicles
+    {
+        public int CylinderVolume { get; set; }
+    }
+
+    public class Car : Vehicles
+    {
+        public string? FuelType { get; set; } 
+    }
+
+    public class Bus : Vehicles
+    {
+        public int NumberOfSeats { get; set; }
+    }
+
+    public class Boat : Vehicles
+    {
+        public int Length { get; set; }
+    }
 }

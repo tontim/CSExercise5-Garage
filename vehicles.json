@@ -1,51 +1,65 @@
 [
-    {
-		"type": "Car",
-        "make": "Toyota",
-        "model": "Camry",
-        "year": 2022,
-        "color": "Silver"
-    },
-    {
-		"type": "Car",
-        "make": "Honda",
-        "model": "Civic",
-        "year": 2021,
-        "color": "Blue"
-    },
-    {
-		"type": "Car",
-        "make": "Ford",
-        "model": "Escape",
-        "year": 2020,
-        "color": "Red"
-    },
-	  {
-		"type": "Motorcycle",
-        "make": "Reeves",
-        "model": "Oldbike",
-        "year": 1998,
-        "color": "Red"
-    },
-		{
-		"type": "Airplane",
-        "make": "Lufthansa",
-        "model": "780",
-        "year": 1995,
-        "color": "White"
-    },
-	  {
-		"type": "Bus",
-        "make": "Volkswagen",
-        "model": "Minibus",
-        "year": 1980,
-        "color": "Baby Blue"
-    },
-	  {
-		"type": "Boat",
-        "make": "Royal",
-        "model": "Glidarn",
-        "year": 2003,
-        "color": "White"
-    }
+  {
+    "Type": "Car",
+    "Model": "Camry",
+    "Year": "2022",
+    "Color": "Silver",
+    "Plate": "ABC123",
+    "FuelType": "Gasoline",
+    "NumberOfWheels": 4
+  },
+  {
+    "Type": "Car",
+    "Model": "Civic",
+    "Year": "2021",
+    "Color": "Blue",
+    "Plate": "ABC456",
+    "FuelType": "Gasoline",
+    "NumberOfWheels": 4
+  },
+  {
+    "Type": "Car",
+    "Model": "Escape",
+    "Year": "2020",
+    "Color": "Red",
+    "Plate": "ABC789",
+    "FuelType": "Gasoline",
+    "NumberOfWheels": 4
+  },
+  {
+    "Type": "Motorcycle",
+    "Model": "Oldbike",
+    "Year": "1998",
+    "Color": "Red",
+    "Plate": "ABC111",
+    "CylinderVolume": 600,
+    "NumberOfWheels": 2
+  },
+  {
+    "Type": "Airplane",
+    "Model": "780",
+    "Year": "1995",
+    "Color": "White",
+    "Plate": "ABC222",
+    "NumberOfEngines": 2,
+    "NumberOfWheels": 6
+  },
+  {
+    "Type": "Bus",
+    "Model": "Minibus",
+    "Year": "1980",
+    "Color": "Baby Blue",
+    "Plate": "ABC555",
+    "NumberOfSeats": 15,
+    "NumberOfWheels": 4
+  },
+  {
+    "Type": "Boat",
+    "Model": "Glidarn",
+    "Year": "2003",
+    "Color": "White",
+    "Plate": "ABC568",
+    "Length": 30,
+    "NumberOfWheels": 0
+  }
 ]
