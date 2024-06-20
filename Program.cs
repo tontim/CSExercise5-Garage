@@ -23,18 +23,19 @@ Console.Write("loaded!\n\n");
 //Instantiate Interface for garagehandler
 IHandler garageHandler = new GarageHandler(ivehicles);
 
-// Create default garage 
-int defaultCapacity = ivehicles.Count; 
+// Create default garage with some empty spaces available
+int defaultCapacity = ivehicles.Count +10; 
 garageHandler.CreateGarage(defaultCapacity);
 
-Console.WriteLine("Welcome to the garage!\n" +
+Console.WriteLine("\n\nWelcome to the garage!\n" +
     "What do you want to do?\n" +
     "[1] - What vehicles are in the garage?\n" +
     "[2] - Add & Remove vehicles\n" +
     "[3] - Search for vehicle\n" +
-    "[4] - Create or Load Garage\n" +
+    "[4] - Create Garage\n" +
     "[5] - Save Garage\n" +
     "[6] - Search by Properties\n" +
+    "[7] - Load Garage\n" +
     "[Q] - Quit");
 string selection = Console.ReadLine()!;
 
@@ -100,7 +101,7 @@ while (selection.ToUpper() != "Q")
             break;
 
         case "4":
-            Console.WriteLine("Enter garage capacity:");
+            Console.WriteLine("Give garage capacity:");
             int capacity = int.Parse(Console.ReadLine()!);
             garageHandler.CreateGarage(capacity);
             break;
@@ -115,19 +116,28 @@ while (selection.ToUpper() != "Q")
             Console.WriteLine("Enter color:");
             string? searchColor = Console.ReadLine();
 
-            //If search is null then use defaultColor, otherwise searchColor
-            searchColor ??= string.IsNullOrEmpty(searchColor) ? "defaultColor" : searchColor;
+            //If search is null then use "", otherwise searchColor
+            searchColor ??= string.IsNullOrEmpty(searchColor) ? "" : searchColor;
             
             Console.WriteLine("Enter number of wheels to search (leave blank for any):");
             string? wheelsInput = Console.ReadLine();
 
             //keep going if search is null otherwise use input
+            //TODO: Fix input check so it doesn't crash with wrong input
             int? searchWheels = string.IsNullOrEmpty(wheelsInput) ? (int?)null : int.Parse(wheelsInput);
 
             garageHandler.SearchByProperties(searchColor, searchWheels);
             
             break;
+        case "7":
 
+            Console.WriteLine("Enter file name to load:");
+            string? loadInput = Console.ReadLine();
+
+            garageHandler.LoadGarage(loadInput!);
+
+            break;
+        
         default:
             Console.WriteLine("Please input a valid entry");
             break;
@@ -138,9 +148,10 @@ while (selection.ToUpper() != "Q")
         "[1] - What vehicles are in the garage?\n" +
         "[2] - Add & Remove vehicles\n" +
         "[3] - Search for vehicle\n" +
-        "[4] - Create or Load Garage\n" +
+        "[4] - Create Garage\n" +
         "[5] - Save Garage\n" +
         "[6] - Search by Properties\n" +
+        "[7] - Load Garage\n" +
         "[Q] - Quit");
     selection = Console.ReadLine()!;
 }
