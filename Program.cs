@@ -20,7 +20,7 @@ Console.Write("vehicles.json ");
 Console.ResetColor();
 Console.Write("loaded!\n\n");
 
-
+//Instantiate Interface for garagehandler
 IHandler garageHandler = new GarageHandler(ivehicles);
 
 // Create default garage 
@@ -38,6 +38,7 @@ Console.WriteLine("Welcome to the garage!\n" +
     "[Q] - Quit");
 string selection = Console.ReadLine()!;
 
+//As long as loop is not Q, keep loop going 
 while (selection.ToUpper() != "Q")
 {
     switch (selection)
@@ -51,6 +52,7 @@ while (selection.ToUpper() != "Q")
             Console.WriteLine("[A]dd or [R]emove?");
             string subSelection = Console.ReadLine()!;
 
+            //Effective way of checking if true with OrdinalIgnoreCase 
             if (subSelection.Equals("A", StringComparison.OrdinalIgnoreCase))
             {
                 Console.WriteLine("Enter vehicle type:");
@@ -67,10 +69,10 @@ while (selection.ToUpper() != "Q")
                 
                 Console.WriteLine("Enter plate:");
                 string plate = Console.ReadLine()!;
-                
+                //TODO: Make if case for boats (they don't have wheels)
                 Console.WriteLine("Enter number of wheels:");
                 int numberOfWheels = int.Parse(Console.ReadLine()!);
-
+                //New vehicle via interface
                 IVehicle vehicle = new Vehicles
                 {
                     Type = type,
@@ -84,6 +86,7 @@ while (selection.ToUpper() != "Q")
             }
             else if (subSelection.Equals("R", StringComparison.OrdinalIgnoreCase))
             {
+                //Use of plates which is an unique identifier for vehicles
                 Console.WriteLine("Enter plate of the vehicle to remove:");
                 string plate = Console.ReadLine()!;
                 garageHandler.RemoveVehicle(plate);
@@ -110,11 +113,19 @@ while (selection.ToUpper() != "Q")
 
         case "6":
             Console.WriteLine("Enter color:");
-            string searchColor = Console.ReadLine();
+            string? searchColor = Console.ReadLine();
+
+            //If search is null then use defaultColor, otherwise searchColor
+            searchColor ??= string.IsNullOrEmpty(searchColor) ? "defaultColor" : searchColor;
+            
             Console.WriteLine("Enter number of wheels to search (leave blank for any):");
-            string wheelsInput = Console.ReadLine();
+            string? wheelsInput = Console.ReadLine();
+
+            //keep going if search is null otherwise use input
             int? searchWheels = string.IsNullOrEmpty(wheelsInput) ? (int?)null : int.Parse(wheelsInput);
+
             garageHandler.SearchByProperties(searchColor, searchWheels);
+            
             break;
 
         default:

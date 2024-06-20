@@ -133,7 +133,8 @@ namespace CSExercise5_Garage
             {
                 var json = File.ReadAllText(filePath);
                 List<Vehicles> loadedVehicles = JsonConvert.DeserializeObject<List<Vehicles>>(json) ?? new List<Vehicles>();
-                vehicles = new List<IVehicle>(loadedVehicles); // Convert to List<IVehicle> because we cant do it directly
+                // Convert to List<IVehicle> again because we cant assign it directly
+                vehicles = new List<IVehicle>(loadedVehicles); 
                 CreateGarage(vehicles.Count + 10);
                 Console.WriteLine("Garage loaded.");
             }
